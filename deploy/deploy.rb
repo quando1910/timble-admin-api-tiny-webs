@@ -1,8 +1,8 @@
 # config valid only for current version of Capistrano
 lock '3.10.0'
 
-set :app, 'multiple-web-api'
-set :repo_url, 'git@github.com:quando1910/unidev-multiple-web.git'
+set :app, 'tiny-webs-api'
+set :repo_url, 'git@github.com:quando1910/timple-admin-api-tiny-webs.git'
 set :branch, 'master'
 set :deploy_to, "/var/www/#{fetch(:app)}"
 # set :linked_dirs, %w{.env}

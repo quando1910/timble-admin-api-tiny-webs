@@ -2,9 +2,9 @@
   "name": "multiple-web",
   "version": "1.0.0",
   "description": "A project for multiple website.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js ./src/index.js",
+    "start": "nodemon ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "new": "node ./src/bin/execute.js"
   },
@@ -14,25 +14,27 @@
   "author": "Quan Do H. <dhquan1910@gmail.com> (www.unidev.vn)",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.2",
-    "body-parser": "^1.18.3",
+    "bcrypt": "^3.0.7",
+    "body-parser": "^1.19.0",
     "cluster": "^0.7.7",
-    "cookie-parser": "^1.4.3",
+    "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
-    "cross-env": "^5.2.0",
+    "cross-env": "^5.2.1",
     "dotenv": "^6.2.0",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "express-jwt": "^5.3.1",
-    "express-validation": "^1.0.2",
+    "express-validation": "^1.0.3",
     "fs": "0.0.1-security",
-    "http-status": "^1.3.1",
-    "inquirer": "^6.2.1",
-    "joi": "^14.3.0",
-    "jsonwebtoken": "^8.4.0",
+    "http-status": "^1.4.1",
+    "inquirer": "^6.5.2",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
     "mkdirp": "^0.5.1",
-    "mongoose": "^5.3.14",
-    "multer": "^1.4.1",
-    "nodemon": "^1.18.7",
-    "sharp": "^0.21.1"
+    "mongoose": "^5.7.12",
+    "multer": "^1.4.2",
+    "swagger-ui-express": "^4.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.0"
   }
 }

@@ -4,10 +4,10 @@
 #
 version: 2
 jobs:
-  build:
+  test_and_build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/node:11.9.0-stretch-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -18,20 +18,54 @@ jobs:
 
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "80:5e:66:28:cd:e8:18:6d:8e:d5:4a:06:fe:d9:9e:bc"
+      - run:
+          name: checkstyle comments
+          command: |
+            sh ./deploy/develop.sh
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+  build_production:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:11.9.0-stretch-browsers
 
-      - run: yarn install
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+    working_directory: ~/repo
 
-      # run tests!
-      - run: yarn test
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "80:5e:66:28:cd:e8:18:6d:8e:d5:4a:06:fe:d9:9e:bc"
+      - run:
+          name: checkstyle comments
+          command: |
+            sh ./deploy/production.sh
+
+workflows:
+  version: 2
+  revamp_staff_app_frontend_workflow:
+    jobs:
+      - test_and_build:
+          filters:
+            branches:
+              ignore:
+                - /.*/
+            tags:
+              only:
+                - /v([0-9]+\.){2}[0-9]+/
+      - build_production:
+          filters:
+            branches:
+              ignore:
+                - /.*/
+            tags:
+              only:
+                - /prod_([0-9]+\.){2}[0-9]+/
+                

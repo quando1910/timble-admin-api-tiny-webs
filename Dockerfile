@@ -1,19 +1,19 @@
  # Create image based on the official Node 6 image from the dockerhub
-FROM node:10
+FROM node:12
 
 # Create a directory where our app will be placed
-RUN mkdir -p /express-multipleweb
+RUN mkdir -p /timble-tinyweb-api
 
 # Change directory so that our commands run inside this new directory
-WORKDIR /express-multipleweb
+WORKDIR /timble-tinyweb-api
 
 # Copy dependency definitions
-COPY package.json /express-multipleweb
-COPY . /express-multipleweb
+COPY package.json /timble-tinyweb-api
+COPY . /timble-tinyweb-api
 
 # Install dependecies
 RUN npm install
-
+RUN npm install bcrypt
 EXPOSE 3013
 
 # Get all the code needed to run the app

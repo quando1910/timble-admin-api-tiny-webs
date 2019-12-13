@@ -2,6 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const controller = require(`../controllers/user.controller`)
+const appController = require('../controllers/app.controller')
 
 /* Enable if you want to validate */
 // const validate = require('express-validation')
@@ -18,8 +19,8 @@ router.get('/', controller.index)
 /* Show a user. */
 router.get('/:id', controller.show)
 
-// /* Create a user. */
-router.post('/', controller.new)
+// /* Create an admin web. */
+router.post('/', appController.checkSuperAdminRole, controller.new)
 
 /* Update a user. */
 router.put('/:id', controller.update)

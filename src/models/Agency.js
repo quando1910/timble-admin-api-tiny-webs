@@ -7,18 +7,25 @@ const AgencySchema = new mongoose.Schema({
     required: true
   },
   desc: String,
-  web: String,
+  domain: String,
   avatar: String,
   phone: Number,
   address: String,
-  default: {
+  firebaseConfig: Object,
+  public: {
     type: Boolean,
-    default: false
+    default: true
   },
-  created_at: { 
+  expireDate: {
+    type: Date
+  },
+  users: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  ],
+  createdAt: { 
     type: Date, required: true, default: Date.now 
   },
-  updated_at: { 
+  updatedAt: { 
     type: Date 
   }
 })

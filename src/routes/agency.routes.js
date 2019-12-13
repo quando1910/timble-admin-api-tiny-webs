@@ -2,7 +2,8 @@
 const express = require('express')
 const router = express.Router()
 const controller = require(`../controllers/agency.controller`)
-const userCtrl = require(`../controllers/user.controller`)
+const appController = require('../controllers/app.controller')
+
 
 /* Enable if you want to validate */
 // const validate = require('express-validation')
@@ -15,10 +16,10 @@ router.get('/', controller.index)
 router.get('/:id', controller.show)
 
 // /* Create a agency. */
-router.post('/', controller.new, userCtrl.new)
+router.post('/', appController.checkSuperAdminRole, controller.new)
 
 /* Update a agency. */
-router.put('/:id', controller.update)
+router.put('/:id', controller.handleYourSelf, controller.update)
 
 /* Delete a agency. */
 router.delete('/:id', controller.delete)

@@ -5,17 +5,20 @@ let { actions, model, asyncMiddleware } = constructor('Agency')
  * Adding new action here
  */
 
-actions.new = async (req, res, next) => {
-  const item = new model(req.body)
-  req.agen = await item.save()
-  next()
+moreFunction = {
+  handleYourSelf: asyncMiddleware(async (req, res, next) => {
+    if (+req.user.adminType === 0) {
+      next()
+    } else if (+req.user.adminType === 1) {
+      const agency = await model.findOne({_id: req.params.id, users: req.user.id})
+      if(agency) {
+        next()
+      }
+    } else {
+      const e = new APIError(403, 'This user do not have permission!')
+      throw e
+    }
+  })
 }
 
-actions.update = asyncMiddleware( async (req, res, next) => {
-  const id = req.params.id
-  const car = req.body
-  const { ...updateData } = car
-  return await model.findOneAndUpdate({ _id: id }, updateData, { new: true })
-})
-
-module.exports = actions
+module.exports = {...actions, ...moreFunction}

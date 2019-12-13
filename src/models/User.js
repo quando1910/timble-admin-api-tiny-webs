@@ -3,29 +3,27 @@ const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
   name: String,
-  email: String,
-  password:  {
-    type: String
+  email: {
+    type: String,
+    unique: true
   },
   phone: {
     type: String,
     default: ''
   },
-  accessToken: String,
-  avatar: {
-    type: String,
-    default: ''
+  birthday: {
+    type: String
   },
-  agencies: {
-    type: Array
-  },
+  agencies:[
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Agency' }
+  ],
   adminType: {
     type: Number
   },
-  created_at: { 
+  createdAt: { 
     type: Date, required: true, default: Date.now 
   },
-  updated_at: { type: Date }
+  updatedAt: { type: Date }
 })
 
 module.exports = User = mongoose.model('User', UserSchema)

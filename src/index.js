@@ -24,24 +24,16 @@ if (cluster.isMaster  && !module.parent) {
 
   if (!module.parent) {
   // Connect to DB
-    mongoose.connect(config.db.url)
+    mongoose.connect(config.db.url, {useNewUrlParser: true })
       .then(() => console.log('MongoDB connected...'))
       .catch(err => {
         console.log(err)
         process.exit(1)
       })
-      const start = async () => {
-        app.listen(config.port, '0.0.0.0')
-        app.on('listening', () => {
-          console.log(`===================================`)
-          console.log(`Server start at port ${config.port}`)
-          console.log(`===================================`)
-        });
-        app.on('error', (e) => {
-          console.error(`ERROR: ${e.message}`);
-        });
-      }
-      start()
+    app.listen(config.port, () => console.log(`Server start at port ${config.port}`))
+    app.on('error', (e) => {
+      console.error(`ERROR: ${e.message}`);
+    });
   }
 }
 

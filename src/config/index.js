@@ -5,7 +5,7 @@ require('dotenv').config();
 // define validation for all the env vars
 const envVarsSchema = Joi.object({
   NODE_ENV: Joi.string().allow(['development', 'production', 'test', 'staging']).default('development'),
-  APP_PORT: Joi.number().default(3001),
+  PORT: Joi.number().default(3001),
   DATABASE_URL: Joi.string().required().description('DB_NAME is required.'),
 }).unknown().required();
 
@@ -21,7 +21,7 @@ if (error) {
 dbConfig.url = envVars.DATABASE_URL;
 
 module.exports = {
-  env: envVars.NODE_ENV,
-  port: envVars.APP_PORT,
+  env: process.env.NODE_ENV,
+  port: process.env.PORT,
   db: dbConfig
 };

@@ -5,8 +5,8 @@ const validate = require('express-validation')
 const controller = require('../controllers/auth.controller')
 
 
-/* Create a user. */
-router.post('/', controller.login)
+/* User Login */
+router.post('/login', controller.login)
 
 // router.get('/', controller.check)
 

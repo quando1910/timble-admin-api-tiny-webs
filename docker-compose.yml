@@ -1,19 +1,19 @@
-version: '2' # specify docker-compose version
+version: '3' # specify docker-compose version
 
 # Define the services/containers to be run
 services:
   database: # name of the third service
     image: mongo # specify image to build container from
+    volumes:
+      - ./data/mongo:/data/db
     ports:
       - "27018:27017" # specify port forewarding
-    volumes:
-      - ./data:/data/db
     
   express: #name of the second service
     build: . # specify the directory of the Dockerfile
     volumes:
-      - .:/express-multipleweb/:rw
-      - express_webmodule:/express-multipleweb/node_modules
+      - .:/timble-tinyweb-api/:rw
+      - /timble-tinyweb-api/node_modules/
     ports:
       - "3013:3013" #specify ports forewarding
     restart: always
@@ -21,6 +21,4 @@ services:
       - database
     environment:
       WAIT_HOSTS: database:27017
-
-volumes:
-  express_webmodule:
+      
